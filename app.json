@@ -1,4 +1,10 @@
 {
-  "name": "reactnative_teste_desempenho",
-  "displayName": "reactnative_teste_desempenho"
+  "expo": {
+    "name": "reactnative_test_desempenho",
+    "slug": "reactnative_test_desempenho",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
 }

@@ -1,5 +1,0 @@
-#import <Foundation/Foundation.h>
-@interface PodsDummy_Pods_reactnative_teste_desempenho_reactnative_teste_desempenhoTests : NSObject
-@end
-@implementation PodsDummy_Pods_reactnative_teste_desempenho_reactnative_teste_desempenhoTests
-@end

@@ -1,6 +1,0 @@
-module Pods_reactnative_teste_desempenho_reactnative_teste_desempenhoTests {
-  umbrella header "Pods-reactnative_teste_desempenho-reactnative_teste_desempenhoTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
