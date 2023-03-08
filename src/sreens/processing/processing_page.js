@@ -1,17 +1,12 @@
 import React from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { TouchableOpacity, StyleSheet,Text, View } from 'react-native';
+import { StyleSheet,Text, View } from 'react-native';
 
-const MenuPage = ({navigation}) => {
+const ProcessingPage = ({navigation}) => {
   return (
     <View style= {styles.container}>
       <StatusBar style="light" />
-      <TouchableOpacity style = {styles.button} onPress={()=>navigation.navigate("Processing")}>
-      <Text style = {styles.textStyleButton}>Teste de processamento</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style = {styles.button} >
-      <Text style = {styles.textStyleButton} onPress={()=>navigation.navigate("DataRendering")}>Teste de renderização</Text>
-      </TouchableOpacity>
+      <Text>About Screen</Text>
     </View>
   );
 }
@@ -40,4 +35,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default MenuPage;
+export default ProcessingPage;
