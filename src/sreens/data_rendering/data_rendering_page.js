@@ -1,16 +1,57 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,Text, View } from 'react-native';
+import { StyleSheet, View ,ScrollView, Text} from 'react-native';
+import api
+ from '../../service/api';
+import CardCharacter from '../../components/card_character';
 
-const DataRenderingPage = () => {
-  return (
-    <View style= {styles.container}>
-      <StatusBar style="light" />
-      <Text>About Screen</Text>
-    </View>
-  );
+export default class DataRenderingPage extends Component {
+  constructor(props) { 
+    super(props);
+    this.state = {
+      characters:[]
+    }
+  
+  }
+
+  async componentDidMount(){
+    var resultCharacters = [];
+    for (var i = 0; i < 1000; i = i + 100) {
+      await api.get('/v1/public/characters',{ params: {
+        ts: '1',
+        orderBy: 'name',
+        limit: '100',
+        offset: i,
+        apikey: '422190db783a962029ff4735e165cb88',
+        hash: '3b5c77dd93627ad07e11a02afa9c7239'
+      }, }).then(({ data }) => {
+        resultCharacters = resultCharacters.concat(data.data.results);
+      });
+    }
+    this.setState({
+      characters: resultCharacters
+    })
+  }
+  
+  render(){
+    return (
+      <View style= {styles.container}>
+        <StatusBar style="light" />
+        {
+          this.state.characters.length == 0 ?
+            <Text key= 'loading' style= {styles.textStyleButton}> Loading ...</Text>
+            :
+            <ScrollView >
+              {this.state.characters.map((character, idx) =>
+              (
+                <CardCharacter key={idx} character={character} />
+              ))}
+            </ScrollView>
+        }
+      </View>
+    )
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -35,4 +76,5 @@ const styles = StyleSheet.create({
 });
 
 
-export default DataRenderingPage;
+
+
