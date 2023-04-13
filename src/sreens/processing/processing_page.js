@@ -1,38 +1,49 @@
+// ProcessingPage.js
 import React from 'react';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,Text, View } from 'react-native';
+import { View, Text } from 'react-native';
+import SharedPreferences from '../../database/shared_pref';
 
-const ProcessingPage = ({navigation}) => {
-  return (
-    <View style= {styles.container}>
-      <StatusBar style="light" />
-      <Text>About Screen</Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#202020',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  button: {
-    elevation: 8,
-    width: 220,
-    height: 50,
-    borderRadius: 10,
-    backgroundColor: '#673AB7',
-    marginBottom: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  textStyleButton: {
-    color:'#FFFFFF',
-    fontSize: 16
+class ProcessingPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      initialTime: null,
+      finalTime: null,
+      processingTime: null,
+    };
   }
-});
 
+  componentDidMount() {
+    this.sharedPrefTest();
+  }
+
+  async sharedPrefTest() {
+    const initialTime = new Date();
+    const database = SharedPreferences;
+    const numberIterations = 100;
+    for (let i = 0; i < numberIterations; i++) {
+      await database.setValue('number', i.toString());
+      const number = await database.getValue('number');
+    }
+    const finalTime = new Date();
+    const processingTime = finalTime.getTime() - initialTime.getTime();
+    this.setState({ processingTime });
+  }
+
+  render() {
+    const { processingTime } = this.state;
+    return (
+      <View style={{
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+      }}>
+        <Text style={{ fontSize: 16, textAlign: 'center', color: 'black', width: 200 }}>
+          {`Tempo de processamento: ${processingTime} milissegundos!`}
+        </Text>
+      </View>
+    );
+  }
+}
 
 export default ProcessingPage;
