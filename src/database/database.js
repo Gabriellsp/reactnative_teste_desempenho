@@ -1,4 +1,4 @@
-import * as SQLite from 'expo-sqlite';
+import * as SQLite from "expo-sqlite";
 
 class Database {
     static instance = null;
@@ -11,37 +11,13 @@ class Database {
         return Database.instance;
     }
 
-    async init() {
-        console.log('init');
-        this.db = SQLite.openDatabase({
-            name: 'MainDB',
-        }, () => { },
-            error => { console.log(error); });
-        await this.db.transaction(tx => {
+    init() {
+        this.db = SQLite.openDatabase('tcc.db');
+        this.db.transaction(tx => {
             tx.executeSql(
-                'SELECT * FROM marvelCharacter',
-                [],
-                (tx, results) => {
-                    console.log(results)
-                    console.log(tx)
-                    const rows = results.rows;
-                    for (let i = 0; i < rows.length; i++) {
-                        console.log(rows.item(i));
-                    }
-                }
+                "create table if not exists marvelCharacter (marvelId integer, name text, description text, thumbnailUrl text);",
             );
         });
-        await this.db.transaction(function (txn) {
-            txn.executeSql(
-                'CREATE TABLE IF NOT EXISTS marvelCharacter(' +
-                'id INTEGER, ' +
-                'name TEXT, ' +
-                'description TEXT,' +
-                'thumbnailUrl TEXT' +
-                ')',
-                [],
-            );;
-        })
     }
 
     async executeSql(sql, params = []) {

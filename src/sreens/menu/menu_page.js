@@ -10,7 +10,6 @@ class MenuPage extends React.Component {
 
   async componentDidMount() {
     await Database.init();
-    console.log(await Database.executeSql('SELECT * FROM marvelCharacter',));
   }
 
   render() {
