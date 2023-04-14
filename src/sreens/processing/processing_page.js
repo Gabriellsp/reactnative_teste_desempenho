@@ -19,11 +19,12 @@ class ProcessingPage extends React.Component {
 
   async sharedPrefTest() {
     const initialTime = new Date();
-    const database = SharedPreferences;
-    const numberIterations = 100;
-    for (let i = 0; i < numberIterations; i++) {
-      await database.setValue('number', i.toString());
-      const number = await database.getValue('number');
+    const sharedPref = SharedPreferences;
+    const numberIterations = 10;
+    await sharedPref.setValue('number', "0");
+
+    for (let i = 0; i < numberIterations; i = parseInt(await sharedPref.getValue('number'))) {
+      await sharedPref.setValue('number', (i + 1).toString());
     }
     const finalTime = new Date();
     const processingTime = finalTime.getTime() - initialTime.getTime();
