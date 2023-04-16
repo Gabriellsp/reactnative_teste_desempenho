@@ -22,8 +22,9 @@ class ProcessingPage extends React.Component {
     const sharedPref = SharedPreferences;
     const numberIterations = 10;
     await sharedPref.setValue('number', "0");
-
-    for (let i = 0; i < numberIterations; i = parseInt(await sharedPref.getValue('number'))) {
+    var i = 0;
+    while (i < numberIterations) {
+      i = parseInt(await sharedPref.getValue('number'));
       await sharedPref.setValue('number', (i + 1).toString());
     }
     const finalTime = new Date();
