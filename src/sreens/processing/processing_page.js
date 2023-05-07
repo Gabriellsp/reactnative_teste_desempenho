@@ -20,7 +20,7 @@ class ProcessingPage extends React.Component {
   async sharedPrefTest() {
     const initialTime = new Date();
     const sharedPref = SharedPreferences;
-    const numberIterations = 10;
+    const numberIterations = 100000;
     await sharedPref.setValue('number', "0");
     var i = 0;
     while (i < numberIterations) {
